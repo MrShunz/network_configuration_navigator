@@ -114,13 +114,15 @@
     'prefix_list' => {
     1 =>
         qr/(?<unique_id> ^ \s* ip \s+ prefix-list \s+ (?<pointed_at> $valid_cisco_name) )/ixsm,
+    2 =>
+        qr/(?<unique_id> ^ \s* ipv6 \s+ prefix-list \s+ (?<pointed_at> $valid_cisco_name) )/ixsm,
 
     },
     'community_list' => {
         1 =>
-            qr/(?<unique_id> ^ \s* 
-                    ip              \s+ 
-                    community-list  \s+ 
+            qr/(?<unique_id> ^ \s*
+                    ip              \s+
+                    community-list  \s+
                     (?: (?: standard|extended|expanded) \s+)?
                     (?<pointed_at> $valid_cisco_name) )
                     /ixsm,

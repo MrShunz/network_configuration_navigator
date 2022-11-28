@@ -16,73 +16,73 @@
 
 'acl' => {
     1 =>
-        qr /^ \s* 
-            match           \s+ 
-            access-group    \s+ 
-            name            \s+ 
+        qr /^ \s*
+            match           \s+
+            access-group    \s+
+            name            \s+
             (?<points_to> $list_of_pointees_ref->{"acl"})
         /ixsm,
-        
+
     2 =>
-        qr /^ \s* 
-            snmp-server             \s+ 
-            community               \s+ 
-            (?: $valid_cisco_name)  \s+ 
-            view                    \s+ 
-            (?: $valid_cisco_name)  \s+ 
-            (?: RO|RW) \s+ 
+        qr /^ \s*
+            snmp-server             \s+
+            community               \s+
+            (?: $valid_cisco_name)  \s+
+            view                    \s+
+            (?: $valid_cisco_name)  \s+
+            (?: RO|RW) \s+
             (?<points_to> $list_of_pointees_ref->{"acl"})
         /ixsm,
-    
+
     3 =>
-        qr /^ \s* 
-            snmp-server             \s+ 
-            community               \s+ 
-            (?: $valid_cisco_name)  \s+ 
-            (?: RO|RW)              \s+ 
+        qr /^ \s*
+            snmp-server             \s+
+            community               \s+
+            (?: $valid_cisco_name)  \s+
+            (?: RO|RW)              \s+
             (?<points_to> $list_of_pointees_ref->{"acl"})
         /ixsm,
-    
+
     4 =>
-        qr /^ \s* 
-            snmp-server             \s+ 
-            file-transfer           \s+ 
-            access-group            \s+ 
-            (?<points_to> $list_of_pointees_ref->{"acl"}) \s+ 
+        qr /^ \s*
+            snmp-server             \s+
+            file-transfer           \s+
+            access-group            \s+
+            (?<points_to> $list_of_pointees_ref->{"acl"}) \s+
             protocol
             /ixsm,
-    
+
     5 =>
-        qr /^ \s* 
-            access-class            \s+ 
-            (?<points_to> $list_of_pointees_ref->{"acl"}) \s+ 
+        qr /^ \s*
+            access-class            \s+
+            (?<points_to> $list_of_pointees_ref->{"acl"}) \s+
             (?: in|out)
             /ixsm,
-    
+
     6 =>
-        qr /^ \s* 
-            snmp-server             \s+ 
-            tftp-server-list        \s+ 
+        qr /^ \s*
+            snmp-server             \s+
+            tftp-server-list        \s+
             (?<points_to> $list_of_pointees_ref->{"acl"})
             /ixsm,
-    
+
     7 =>
-        qr /^ \s* 
-            ip                      \s+ 
-            directed-broadcast      \s+ 
-            (?<points_to> $list_of_pointees_ref->{"acl"}) 
+        qr /^ \s*
+            ip                      \s+
+            directed-broadcast      \s+
+            (?<points_to> $list_of_pointees_ref->{"acl"})
             $
             /ixsm,
-    
+
     8 =>
-        qr /^ \s* 
-            ntp                     \s+ 
-            access-group            \s+ 
+        qr /^ \s*
+            ntp                     \s+
+            access-group            \s+
             (?: peer | serve | serve-only | query-only) \s+
-            (?<points_to> $list_of_pointees_ref->{"acl"}) 
+            (?<points_to> $list_of_pointees_ref->{"acl"})
             $
             /ixsm,
-    
+
     9 => qr /^ \s*
                 match (?: \s+ not )?    \s+
                 access-group            \s+
@@ -170,6 +170,13 @@
 			access-class                 \s+
             (?<points_to> $list_of_pointees_ref->{"acl"})
             /ixsm,
+    22 => qr /^ \s*
+                ipv6                    \s+
+                traffic-filter          \s+
+                (?<points_to> $list_of_pointees_ref->{"acl"})
+                (?: \s+ in|out)?
+                (?: \s+ | $)
+                /ixsm,
     },
 
 'policy_map' => {
@@ -179,8 +186,8 @@
         (?<points_to> $list_of_pointees_ref->{"policy_map"})
         /ixsm,
 2 =>
-    qr/^ \s* 
-        service-policy          \s+ 
+    qr/^ \s*
+        service-policy          \s+
         (?<points_to> $list_of_pointees_ref->{"policy_map"})
         $
         /ixsm,
@@ -204,10 +211,10 @@
 
 'route_map' => {
 1 =>
-    qr/^ \s* 
-        neighbor                    \s+ 
-        (?: $RE{net}{IPv4} | $valid_cisco_name ) \s+ 
-        route-map                   \s+ 
+    qr/^ \s*
+        neighbor                    \s+
+        (?: $RE{net}{IPv4} | $valid_cisco_name ) \s+
+        route-map                   \s+
         (?<points_to> $list_of_pointees_ref->{"route_map"})
         /ixsm,
 2 => qr/^ \s*
@@ -259,11 +266,11 @@
         /ixsm,
 
 8 =>
-    qr/^ \s* 
-        neighbor                    \s+ 
-        $RE{net}{IPv4}              \s+ 
-        default-originate           \s+ 
-        route-map                   \s+ 
+    qr/^ \s*
+        neighbor                    \s+
+        $RE{net}{IPv4}              \s+
+        default-originate           \s+
+        route-map                   \s+
         (?<points_to> $list_of_pointees_ref->{"route_map"})
         /ixsm,
 
@@ -274,43 +281,43 @@
         map                         \s+
         (?<points_to> $list_of_pointees_ref->{"route_map"})
         /ixsm,
-        
+
 10 => qr/\s+
         advertise-map               \s+
         (?<points_to> $list_of_pointees_ref->{"route_map"})
         /ixsm,
-        
+
 11 => qr/^ \s*
         distribute-list \s+
         route-map \s+
         (?<points_to> $list_of_pointees_ref->{"route_map"})/ixsm,
-        
+
 12 => qr/^ \s*
-        ip                          \s+ 
-        nat                         \s+ 
+        ip                          \s+
+        nat                         \s+
         (?: (inside | outside) \s+)?
         source                      \s+
         route-map                   \s+
         (?<points_to> $list_of_pointees_ref->{"route_map"})
         /ixsm,
-        
+
 13 => qr/^ \s*
-        eigrp                       \s+ 
-        stub                        \s+ 
+        eigrp                       \s+
+        stub                        \s+
         .*
         leak-map                    \s+
         (?<points_to> $list_of_pointees_ref->{"route_map"})/ixsm,
-        
+
 
 },
 
 'prefix_list' => {
 1 =>
-    qr/^ \s* 
-        neighbor        \s+ 
-        $RE{net}{IPv4}  \s+ 
-        prefix-list     \s+ 
-        (?<points_to> $list_of_pointees_ref->{"prefix_list"}) \s+ 
+    qr/^ \s*
+        neighbor        \s+
+        $RE{net}{IPv4}  \s+
+        prefix-list     \s+
+        (?<points_to> $list_of_pointees_ref->{"prefix_list"}) \s+
         (?:in|out)
         $
         /ixsm,
@@ -327,6 +334,13 @@
         prefix              \s+
         (?<points_to> (?: $list_of_pointees_ref->{"prefix_list"} | \s )+ )           #This can be a list of things                                                                                        #separated by whitespace
         /ixsm,
+'4_list' => qr/^ \s*
+        match           \s+
+        ipv6            \s+
+        address         \s+
+        prefix-list     \s+
+        (?<points_to> (?: $list_of_pointees_ref->{"prefix_list"} | \s )+ )
+        /ixsm,
 },
 'community_list' => {
     '1_list' => qr/^ \s*
@@ -338,11 +352,11 @@
 },
 'as_path_access_list' => {
     1 =>
-        qr/^ \s* 
-            neighbor        \s+ 
-            (?: $RE{net}{IPv4} | $valid_cisco_name) \s+ 
-            filter-list     \s+ 
-            (?<points_to> $list_of_pointees_ref->{"as_path_access_list"}) \s+ 
+        qr/^ \s*
+            neighbor        \s+
+            (?: $RE{net}{IPv4} | $valid_cisco_name) \s+
+            filter-list     \s+
+            (?<points_to> $list_of_pointees_ref->{"as_path_access_list"}) \s+
             (?:in|out)
             $
         /ixsm,
@@ -364,10 +378,10 @@
 #     3 =>
 #         qr/^ \s* no \s+ passive-interface \s+ (?<points_to> $list_of_pointees_ref->{"interface"}) /ixsm,
 3 =>
-    qr/^ \s* 
-        (?:no \s+)? 
-        passive-interface \s+ 
-        (?<points_to> $list_of_pointees_ref->{"interface"}) 
+    qr/^ \s*
+        (?:no \s+)?
+        passive-interface \s+
+        (?<points_to> $list_of_pointees_ref->{"interface"})
         /ixsm,
 
 #     4 =>
@@ -400,24 +414,24 @@
             (?:source|interface) \s+
             (?<points_to> $list_of_pointees_ref->{"interface"})
             /ixsm,
-            
+
     12 => qr/\s+
             (?: in | out )      \s+
             (?<points_to> $list_of_pointees_ref->{"interface"})
             /ixsm,
-            
+
     13 => qr/^ \s*
             tunnel              \s+
             source              \s+
             (?<points_to> $list_of_pointees_ref->{"interface"})
             /ixsm,
-            
+
     14 => qr/^ \s*                                                  #ACE
             ft-interface        \s+
             vlan                \s+
             (?<points_to> $list_of_pointees_ref->{"interface"})
             /ixsm,
-            
+
     15 => qr/^ \s*                                                  #ACE
             allocate-interface  \s+
             vlan                \s+
@@ -435,7 +449,7 @@
 'track' => {
     # This will be something like "track 1" so it shouldn't just match
     # any bare number
-    1 => qr/    
+    1 => qr/
                 (?<points_to> $list_of_pointees_ref->{"track"} )
         /isxm,
 
@@ -597,7 +611,7 @@
             ip \s+
             hold-time \s+
             (?<points_to> (?: $list_of_pointees_ref->{"routing_process"}) )
-            /ixsm,                
+            /ixsm,
     },
 'object_group' => {
 
@@ -804,7 +818,7 @@
 #   },
 'ace_ft_peer' => {
 1 => qr/
-        ^ \s*            
+        ^ \s*
         peer \s+
         (?<points_to> (?: $list_of_pointees_ref->{"ace_ft_peer"}) )
         \s* $
@@ -812,7 +826,7 @@
 },
 'ace_action_list' => {
 1 => qr/
-        ^ \s*            
+        ^ \s*
         action \s+
         (?<points_to> (?: $list_of_pointees_ref->{"ace_action_list"}) )
         /ixsm,

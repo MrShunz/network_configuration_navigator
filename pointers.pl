@@ -321,6 +321,15 @@
         (?:in|out)
         $
         /ixsm,
+2 =>
+    qr/^ \s*
+        neighbor        \s+
+        $RE{net}{IPv6}  \s+
+        prefix-list     \s+
+        (?<points_to> $list_of_pointees_ref->{"prefix_list"}) \s+
+        (?:in|out)
+        $
+        /ixsm,
 '2_list' => qr/^ \s*
         match           \s+
         ip              \s+
@@ -340,6 +349,13 @@
         address         \s+
         prefix-list     \s+
         (?<points_to> (?: $list_of_pointees_ref->{"prefix_list"} | \s )+ )
+        /ixsm,
+# match prefix-list in template peer-policy
+'5_list' =>
+    qr/^ \s*
+        prefix-list     \s+
+        (?<points_to> $list_of_pointees_ref->{"prefix_list"}) \s+
+        $
         /ixsm,
 },
 'community_list' => {

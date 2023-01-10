@@ -355,6 +355,7 @@
     qr/^ \s*
         prefix-list     \s+
         (?<points_to> $list_of_pointees_ref->{"prefix_list"}) \s+
+        (?:in|out)
         $
         /ixsm,
 },

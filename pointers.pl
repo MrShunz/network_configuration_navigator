@@ -358,6 +358,15 @@
         (?:in|out)
         $
         /ixsm,
+# match prefix-list in MPLS allocation
+'6_list' =>
+    qr/^ \s*
+        allocate        \s+
+        global          \s+
+        prefix-list     \s+
+        (?<points_to> (?: $list_of_pointees_ref->{"prefix_list"} | \s )+ )
+        $
+        /ixsm,
 },
 'community_list' => {
     '1_list' => qr/^ \s*
